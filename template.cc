@@ -3,7 +3,10 @@
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+#ifndef LOCAL
+    cin.tie(nullptr);
+#endif
 
     return 0;
 }

@@ -1,32 +1,11 @@
-template<class T> struct beg_end { T b, e; };
-template<class T> beg_end<T> range(T i, T j) { return beg_end<T>{i, j}; }
-template<class T> auto sfinae(T* p) -> decltype(std::cerr << *p, nullptr);
-template<class T> char sfinae(...);
-struct debug {
+template<class A, class B> ostream& operator<<(ostream &os, const pair<A, B> &p) { return os << '(' << p.first << ", " << p.second << ')'; }
+template<class T_container, class T = typename enable_if<!is_same<T_container, string>::value, typename T_container::value_type>::type> ostream& operator<<(ostream &os, const T_container &v) { os << '{'; string sep; for (const T &x : v) os << sep << x, sep = ", "; return os << '}'; }
+
+void dbg_out() { cerr << endl; }
+template<class Head, class... Tail> void dbg_out(Head H, Tail... T) { cerr << ' ' << H; dbg_out(T...); }
+
 #ifdef LOCAL
-    ~debug() { std::cerr << '\n'; }
-    template<class T>
-    typename std::enable_if<sizeof sfinae<T>(nullptr) != 1, debug&>::type operator<<(T x) {
-        std::cerr << std::boolalpha << x;
-        return *this;
-    }
-    template<class T>
-    typename std::enable_if<sizeof sfinae<T>(nullptr) == 1, debug&>::type operator<<(T x) {
-        return *this << range(begin(x), end(x));
-    }
-    template<class T, class U>
-    debug& operator<<(std::pair <T, U> p) {
-        return *this << "(" << p.first << ", " << p.second << ")";
-    }
-    template<class T>
-    debug& operator<<(beg_end<T> container) {
-        *this << "[";
-        for (auto it = container.b; it != container.e; ++it)
-            *this << ", " + 2 * (it == container.b) << *it;
-        return *this << "]";
-    }
+#define debug(...) cerr << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 #else
-    template<class T> debug& operator<<(const T&) { return *this; }
+#define debug(...)
 #endif
-};
-#define im(...) "{" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "} "

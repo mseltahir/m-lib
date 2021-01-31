@@ -7,7 +7,10 @@ template<typename T> void max_self(T& a, T b) { a = max(a, b); }
 template<typename T> void min_self(T& a, T b) { a = min(a, b); }
 
 int main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+#ifndef LOCAL
+    cin.tie(nullptr);
+#endif
 
     return 0;
 }

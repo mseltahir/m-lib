@@ -4,8 +4,7 @@
 // or:
 //   SparseTable<int> st(a, [&](int i, int j) { return min(i, j); });
 template <typename T, class F = function<T(const T&, const T&)>>
-class SparseTable {
- public:
+struct SparseTable {
     int n;
     vector<vector<T>> mat;
     F func;

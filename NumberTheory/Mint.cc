@@ -35,5 +35,5 @@ template <unsigned M_> struct ModInt {
   friend std::ostream &operator<<(std::ostream &os, const ModInt &a) { return os << a.x; }
 };
 
-constexpr unsigned MO = 10;
+constexpr unsigned MO = ...;
 using Mint = ModInt<MO>;
